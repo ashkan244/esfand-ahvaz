@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 
 // --- Custom SVG Icons (No external dependencies required) ---
 const IconBase = ({ children, size = 24, className = "", strokeWidth = 2 }) => (
@@ -87,20 +87,6 @@ const shafaData = [
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('infectious');
-  const [isReady, setIsReady] = useState(false);
-
-  // سیستم لودر قدرتمند Tailwind برای اطمینان از اجرای گرافیک در هر سروری
-  useEffect(() => {
-    if (!document.getElementById('tailwind-cdn')) {
-      const script = document.createElement('script');
-      script.id = 'tailwind-cdn';
-      script.src = 'https://cdn.tailwindcss.com';
-      script.onload = () => setIsReady(true);
-      document.head.appendChild(script);
-    } else {
-      setIsReady(true);
-    }
-  }, []);
 
   // --- Statistics Calculation ---
   const calculateSingleStats = (data) => {
@@ -227,11 +213,6 @@ export default function App() {
       </div>
     </div>
   );
-
-  // در حالت عدم بارگیری کامل گرافیک، یک صفحه بارگیری نشان میدهیم تا جلوی بهم ریختگی گرفته شود
-  if (!isReady) {
-    return <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'system-ui', direction: 'rtl'}}>در حال بارگذاری رابط گرافیکی...</div>;
-  }
 
   return (
     <div dir="rtl" className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-gray-800 p-4 md:p-8" style={{ fontFamily: '"Vazirmatn", system-ui, sans-serif' }}>
