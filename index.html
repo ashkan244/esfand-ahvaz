@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Calendar, User, Hospital, Activity, Clock, Moon, Sun, Sunset, Users } from 'lucide-react';
 
 // --- Data Preparation ---
@@ -72,6 +72,16 @@ const shafaData = [
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('infectious');
+
+  // اضافه کردن خودکار Tailwind CSS برای اجرای صحیح گرافیک در سرورهای دیگر
+  useEffect(() => {
+    if (!document.getElementById('tailwind-cdn')) {
+      const script = document.createElement('script');
+      script.id = 'tailwind-cdn';
+      script.src = 'https://cdn.tailwindcss.com';
+      document.head.appendChild(script);
+    }
+  }, []);
 
   // --- Statistics Calculation ---
   const calculateSingleStats = (data) => {
